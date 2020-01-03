@@ -132,6 +132,15 @@ const constructAdditionalParams = (options) => {
                     params = `${params}${key}.${innerKey}=${innerParams[innerKey]}&`;
                 }
             }
+            else if (key === 'filter') {
+                let filters = options[key].split(',');
+                filters.map((filt)=>{
+                    let kvp = filt.split(':');
+                    params += `itemFilter(${count}).name=${kvp[0]}&
+                    itemFilter(${count}).value=${kvp[1]}&`;
+                    count++;
+                });
+            }
             else {
                 params = `${params}itemFilter(${count}).name=${key}&
                 itemFilter(${count}).value=${options[key]}&`;
